@@ -1,4 +1,5 @@
 ## code to prepare `dgm_sample` dataset goes here
+set.seed(123)
 dgm_demo <- function(sample_size, total_T) {
 
   alpha_0 <- - 1.5

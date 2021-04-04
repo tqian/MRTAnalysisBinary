@@ -66,5 +66,14 @@ in the variance estimate and t-distribution or F-distribution critical value wit
 corrected degrees of freedom.
 }
 \examples{
+estimator_EMEE(dta = dgm_sample,
+                         id_varname = "userid",
+                         decision_time_varname = "day",
+                         treatment_varname = "A",
+                         outcome_varname = "Y",
+                         control_varname = c("time_var1", "time_var2"),
+                         moderator_varname = "time_var1",
+                         rand_prob_varname = "prob_A",
+                         avail_varname = "avail")
 
 }
