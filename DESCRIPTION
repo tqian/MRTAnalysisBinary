@@ -14,3 +14,5 @@ Suggests:
 Config/testthat/edition: 3
 RoxygenNote: 7.1.1
 Imports: rootSolve
+Depends: 
+    R (>= 2.10)
