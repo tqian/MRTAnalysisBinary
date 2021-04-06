@@ -204,4 +204,56 @@ test_that(
       tolerance = 1e-7
     )})
 
+rand_prob_tilde_test <- rep(0.5, length = 20)
 
+test_that(
+  "check error when p_tilde is of incorrect length",
+  {
+    expect_error(
+      estimator_EMEE(
+        dta = dgm_sample,
+        id_varname = "userid",
+        decision_time_varname = "day",
+        treatment_varname = "A",
+        outcome_varname = "Y",
+        control_varname = c("time_var1", "time_var2"),
+        moderator_varname = "time_var1",
+        rand_prob_varname = "prob_A",
+        avail_varname = "avail",
+        rand_prob_tilde = rand_prob_tilde_test),
+      "rand_prob_tilde is of incorrect length."
+    )
+  }
+)
+
+dgm_sample$A_test <- dgm_sample$A
+dgm_sample$A_test[dgm_sample$avail == 1] <- rep(NA, 2420)
+test_that(
+  "check error when treatmeng indicator is NA where availability = 1",
+  {
+    expect_error(
+      estimator_EMEE(
+        dta = dgm_sample,
+        id_varname = "userid",
+        decision_time_varname = "day",
+        treatment_varname = "A_test",
+        outcome_varname = "Y",
+        control_varname = c("time_var1", "time_var2"),
+        moderator_varname = "time_var1",
+        rand_prob_varname = "prob_A",
+        avail_varname = "avail"),
+      "Treatment indicator is NA where availability = 1."
+    )
+  }
+)
+
+v_test <- {}
+test_that(
+  "check error for find_change_location",
+  {
+    expect_error(
+      find_change_location(v_test),
+      "The vector need to have length > 1."
+    )
+  }
+)
