@@ -229,7 +229,7 @@ test_that(
 dgm_sample$A_test <- dgm_sample$A
 dgm_sample$A_test[dgm_sample$avail == 1] <- rep(NA, 2420)
 test_that(
-  "check error when treatmeng indicator is NA where availability = 1",
+  "check error when treatment indicator is NA where availability = 1",
   {
     expect_error(
       estimator_EMEE(
