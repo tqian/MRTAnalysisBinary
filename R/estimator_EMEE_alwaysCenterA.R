@@ -193,8 +193,8 @@ estimator_EMEE_alwaysCenterA <- function(
             Zdm_i <- matrix(Zdm_i, ncol = 1)
         }
 
-        stopifnot(class(Zdm_i) == "matrix")
-        stopifnot(class(Xdm_i) == "matrix")
+        stopifnot(class(Zdm_i)[1] == "matrix")
+        stopifnot(class(Xdm_i)[1] == "matrix")
         stopifnot(nrow(Zdm_i) == T_i & ncol(Zdm_i) == q)
         stopifnot(nrow(Xdm_i) == T_i & ncol(Xdm_i) == p)
 
