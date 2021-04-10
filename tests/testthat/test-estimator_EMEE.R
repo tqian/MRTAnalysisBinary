@@ -246,14 +246,3 @@ test_that(
     )
   }
 )
-
-v_test <- {}
-test_that(
-  "check error for find_change_location",
-  {
-    expect_error(
-      find_change_location(v_test),
-      "The vector need to have length > 1."
-    )
-  }
-)

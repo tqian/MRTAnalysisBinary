@@ -255,30 +255,3 @@ estimator_EMEE <- function(
                 f.root = solution$f.root))
 }
 
-
-
-get_alpha_beta_from_multiroot_result <- function(root, p, q)
-{
-    if (p == 1) {
-        beta_root <- root$root[q+1]
-    } else {
-        beta_root <- as.matrix(root$root[(q+1) : (q+p)])
-    }
-    if (q == 1) {
-        alpha_root <- root$root[1]
-    } else {
-        alpha_root <- as.matrix(root$root[1:q])
-    }
-    return(list(alpha = alpha_root, beta = beta_root))
-}
-
-find_change_location <- function(v){
-    n <- length(v)
-    if (n <= 1) {
-        stop("The vector need to have length > 1.")
-    }
-    return(c(1, 1 + which(v[1:(n-1)] != v[2:n])))
-}
-# examples
-# v <- c("a", "a", "b", "c", "c"); find_change_location(v)
-# [1] 1 3 4

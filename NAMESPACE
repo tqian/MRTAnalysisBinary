@@ -2,4 +2,6 @@
 
 export(estimator_EMEE)
 export(estimator_EMEE_alwaysCenterA)
+export(find_change_location)
+export(get_alpha_beta_from_multiroot_result)
 import(rootSolve)
