@@ -133,7 +133,7 @@ efficient_ee_modified_weight <- function(
       multiroot(estimating_equation, estimator_initial_value)
     },
     error = function(cond) {
-      message("\nCatched error in multiroot inside efficient_ee():")
+      message("\nCatched error in multiroot inside efficient_ee_modified_weight():")
       message("\nThe program cannot find a numerical solution to the estimating eqaution.")
       message(cond)
       return(list(root = rep(NaN, p + q), msg = cond,

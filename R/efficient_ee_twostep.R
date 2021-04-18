@@ -126,7 +126,7 @@ efficient_ee_twostep <- function(
       multiroot(ee_init, rep(0, p + q)) # initial value is all zero's
     },
     error = function(cond) {
-      message("\nCatched error in multiroot inside efficient_ee():")
+      message("\nCatched error in multiroot inside efficient_ee_twostep():")
       message("\nThe program cannot find a numerical solution to the first step estimating equation.")
       message(cond)
       return(list(root = rep(NaN, p+q), msg = cond,
@@ -167,7 +167,7 @@ efficient_ee_twostep <- function(
       multiroot(ee_mle, c(alpha_init, beta_init)) # initial value is from ee_init
     },
     error = function(cond) {
-      message("\nCatched error in multiroot inside efficient_ee():")
+      message("\nCatched error in multiroot inside efficient_ee_twostep():")
       message("\nThe program cannot find a numerical solution to the MLE score equation.")
       message(cond)
       return(list(root = rep(NaN, p+q), msg = cond,
@@ -212,7 +212,7 @@ efficient_ee_twostep <- function(
       multiroot(estimating_equation, beta_mle) # initial value here is from ee_mle
     },
     error = function(cond) {
-      message("\nCatched error in multiroot inside efficient_ee():")
+      message("\nCatched error in multiroot inside efficient_ee_twostep():")
       message("\nThe program cannot find a numerical solution to the second step estimating equation.")
       message(cond)
       return(list(root = rep(NaN, p), msg = cond,
