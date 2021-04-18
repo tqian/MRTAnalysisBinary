@@ -35,6 +35,7 @@
 #'         the estimated variance-covariance matrix for the estimated beta with its intercept and alpha with its intercept for small sample,
 #'         the value of the estimating function at the estimated beta and alpha
 #' @export
+#' @import rootSolve
 #'
 #' @examples efficient_ee_modified_weight(dta = dgm_sample,
 #'                          id_varname = "userid",
