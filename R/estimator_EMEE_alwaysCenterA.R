@@ -119,6 +119,7 @@ estimator_EMEE_alwaysCenterA <- function(
         },
         error = function(cond) {
             message("\nCatched error in multiroot inside estimator_EMEE_alwaysCenterA():")
+            message("\nThe program cannot find a numerical solution to the estimating eqaution.")
             message(cond)
             return(list(root = rep(NaN, p + q), msg = cond,
                         f.root = rep(NaN, p + q)))
