@@ -140,7 +140,8 @@ estimator_EMEE <- function(
             multiroot(estimating_equation, estimator_initial_value)
         },
         error = function(cond) {
-            message("\nCatched error in multiroot inside weighted_centered_least_square():")
+            message("\nCatched error in multiroot inside estimator_EMEE():")
+            message("\nThe program cannot find a numerical solution to the estimating eqaution.")
             message(cond)
             return(list(root = rep(NaN, p + q), msg = cond,
                         f.root = rep(NaN, p + q)))
