@@ -28,6 +28,8 @@
 #'         the adjusted standard error of the estimated beta with its intercept and alpha with its intercept for small sample,
 #'         the estimated variance-covariance matrix for the estimated beta with its intercept and alpha with its intercept,
 #'         the estimated variance-covariance matrix for the estimated beta with its intercept and alpha with its intercept for small sample,
+#'         the 95 percent confidence interval for beta_hat, and the adjusted 95 percent confidence interval for beta_hat,
+#'         the dimension of the moderated variables, and the dimension of the control variables,
 #'         the value of the estimating function at the estimated beta and alpha
 #' @import rootSolve
 #' @export
@@ -240,11 +242,20 @@ estimator_EMEE_alwaysCenterA <- function(
     names(alpha_hat) <- names(alpha_se) <- names(alpha_se_adjusted) <- Znames
     names(beta_hat) <- names(beta_se) <- names(beta_se_adjusted) <- Xnames
 
+    ### 5. calculate confidence interval
+
+    conf_int <- cbind(beta_hat - 1.96 * beta_se, beta_hat + 1.96 * beta_se)
+    c <- qt(1 - 0.05/2, df = sample_size - p - q)
+    conf_int_adjusted <- cbind(beta_hat - c * beta_se_adjusted,
+                               beta_hat + c * beta_se_adjusted)
+    colnames(conf_int) <- colnames(conf_int_adjusted) <- c("2.5 %", "97.5 %")
+
     return(list(beta_hat = beta_hat, alpha_hat = alpha_hat,
                 beta_se = beta_se, alpha_se = alpha_se,
                 beta_se_adjusted = beta_se_adjusted, alpha_se_adjusted = alpha_se_adjusted,
                 varcov = varcov,
                 varcov_adjusted = varcov_adjusted,
+                conf_int = conf_int, conf_int_adjusted = conf_int_adjusted,
                 dims = list(p = p, q = q),
                 f.root = solution$f.root))
 }

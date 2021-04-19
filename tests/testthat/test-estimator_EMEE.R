@@ -204,7 +204,7 @@ test_that(
       tolerance = 1e-7
     )})
 
-# extract confidence interval from the output and make is as a matrix
+# extract the confidence interval from the output and drop its column and row names
 
 conf_int <- estimator_EMEE(
   dta = dgm_sample,
@@ -226,6 +226,8 @@ test_that(
              nrow = 2, ncol = 2, byrow = TRUE),
       tolerance = 1e-6
     )})
+
+# extract the adjusted confidence interval from the output and drop its column and row names
 
 conf_int_adjusted <- estimator_EMEE(
   dta = dgm_sample,

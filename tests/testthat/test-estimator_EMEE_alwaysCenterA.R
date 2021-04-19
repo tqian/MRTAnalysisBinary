@@ -210,6 +210,52 @@ test_that(
       tolerance = 1e-7
     )})
 
+# extract the confidence interval from the output and drop its column and row names
+
+conf_int <- estimator_EMEE_alwaysCenterA(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  avail_varname = "avail")$conf_int
+dimnames(conf_int) <- c()
+
+test_that(
+  "check conf_int",
+  {
+    expect_equal(conf_int,
+                 matrix(c(-0.16011431, 0.3301645, 0.05769972, 0.7675125),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
+# extract the adjusted confidence interval from the output and drop its column and row names
+
+conf_int_adjusted <- estimator_EMEE_alwaysCenterA(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  avail_varname = "avail")$conf_int_adjusted
+dimnames(conf_int_adjusted) <- c()
+
+test_that(
+  "check conf_int_adjusted",
+  {
+    expect_equal(conf_int_adjusted,
+                 matrix(c(-0.16646416, 0.3365143, 0.04833002, 0.7768822),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
 dgm_sample$A_test <- dgm_sample$A
 dgm_sample$A_test[dgm_sample$avail == 1] <- rep(NA, 2420)
 test_that(
