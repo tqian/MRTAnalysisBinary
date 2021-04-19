@@ -204,6 +204,50 @@ test_that(
       tolerance = 1e-7
     )})
 
+# extract confidence interval from the output and make is as a matrix
+
+conf_int <- estimator_EMEE(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  avail_varname = "avail")$conf_int
+dimnames(conf_int) <- c()
+
+test_that(
+  "check conf_int",
+  {
+    expect_equal(conf_int,
+      matrix(c(-0.1739030, 0.3361929, 0.0602503, 0.7983763),
+             nrow = 2, ncol = 2, byrow = TRUE),
+      tolerance = 1e-6
+    )})
+
+conf_int_adjusted <- estimator_EMEE(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  avail_varname = "avail")$conf_int_adjusted
+dimnames(conf_int_adjusted) <- c()
+
+test_that(
+  "check conf_int_adjusted",
+  {
+    expect_equal(conf_int_adjusted,
+                 matrix(c(-0.1802007, 0.3424906, 0.0510328, 0.8075939),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
 rand_prob_tilde_test <- rep(0.5, length = 20)
 
 test_that(
