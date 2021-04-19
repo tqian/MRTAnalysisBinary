@@ -243,14 +243,6 @@ estimator_EMEE <- function(
     alpha_se_adjusted <- sqrt(diag(varcov_adjusted)[1:q])
     beta_se_adjusted <- sqrt(diag(varcov_adjusted)[(q+1):(q+p)])
 
-    ### 5. calculate confidence interval
-
-    conf_int <- cbind(beta_hat - 1.96 * beta_se, beta_hat + 1.96 * beta_se)
-    c <- qt(1 - 0.05/2, df = sample_size - p - q)
-    conf_int_adjusted <- cbind(beta_hat - c * beta_se_adjusted,
-                           beta_hat + c * beta_se_adjusted)
-    names(conf_int) <- names(conf_int_adjusted) <- c("2.5 %", "97.5 %")
-
 
     ### 6. return the result with variable names ###
 
