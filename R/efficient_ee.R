@@ -45,26 +45,15 @@
 #' @export
 #' @import rootSolve
 #'
-#' @examples fit_EMEE <- estimator_EMEE(dta = dgm_sample,
-#'                          id_varname = "userid",
-#'                          decision_time_varname = "day",
-#'                          treatment_varname = "A",
-#'                          outcome_varname = "Y",
-#'                          control_varname = c("time_var1", "time_var2"),
-#'                          moderator_varname = "time_var1",
-#'                          rand_prob_varname = "prob_A",
-#'                          avail_varname = "avail")
-#'
-#'                          efficient_ee(dta = dgm_sample,
-#'                          id_varname = "userid",
-#'                          decision_time_varname = "day",
-#'                          treatment_varname = "A",
-#'                          outcome_varname = "Y",
-#'                          control_varname = c("time_var1", "time_var2"),
-#'                          moderator_varname = "time_var1",
-#'                          rand_prob_varname = "prob_A",
-#'                          estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
-#'                          )
+#' @examples efficient_ee(dta = dgm_sample,
+#'                        id_varname = "userid",
+#'                        decision_time_varname = "day",
+#'                        treatment_varname = "A",
+#'                        outcome_varname = "Y",
+#'                        control_varname = c("time_var1", "time_var2"),
+#'                        moderator_varname = "time_var1",
+#'                        rand_prob_varname = "prob_A",
+#'                        EMEE_initial_value = TRUE)
 efficient_ee <- function(
   dta,
   id_varname,
