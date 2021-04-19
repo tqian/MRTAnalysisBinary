@@ -23,12 +23,18 @@
 #' @param rand_prob_varname the variable name that specifies the treatment randomizing probability in the data set
 #' @param avail_varname the variable name that specifies the availability of the subjects,
 #'                      default to be always available at any decision points using NULL
+#' @param EMEE_initial_value a logical value that specifies whether to use the estimates from
+#'                           the marginal excursion effect estimator(estimator_EMEE()) as initial values,
+#'                           default to be TRUE, which sets the initial values as the estimates from estimator_EMEE(),
+#'                           use FALSE to avoid inputs from estimator_EMEE() if certain initial values
+#'                           need to be specified in the parameter estimator_initial_value.
 #' @param estimator_initial_value a numeric vector of the initial value for the estimator,
 #'                                its length should be the sum of the length of control and moderator variables plus 2
 #'                                default to be all 0's using NULL
 #'                                the initial values in this estimator are very sensitive,
 #'                                thus setting the initial values as the estimates from
 #'                                the EMEE estimator is suggested.
+#'
 #'
 #' @return the estimated beta with its intercept and alpha with its intercept,
 #'         the standard error of the estimated beta with its intercept and alpha with its intercept,
@@ -69,6 +75,7 @@ efficient_ee <- function(
   moderator_varname,
   rand_prob_varname,
   avail_varname = NULL,
+  EMEE_initial_value = TRUE,
   estimator_initial_value = NULL
 )
 {
@@ -123,6 +130,23 @@ efficient_ee <- function(
 
     ef <- ef / sample_size
     return(ef)
+  }
+
+  if(isTRUE(EMEE_initial_value)) {
+    fit_EMEE <- estimator_EMEE(
+      dta = dta,
+      id_varname = id_varname,
+      decision_time_varname = decision_time_varname,
+      treatment_varname = treatment_varname,
+      outcome_varname = outcome_varname,
+      control_varname = control_varname,
+      moderator_varname = moderator_varname,
+      rand_prob_varname = rand_prob_varname,
+      avail_varname = avail_varname,
+      rand_prob_tilde_varname = NULL,
+      rand_prob_tilde = NULL,
+      estimator_initial_value = estimator_initial_value)
+    estimator_initial_value <- c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
   }
 
   if (is.null(estimator_initial_value)) {

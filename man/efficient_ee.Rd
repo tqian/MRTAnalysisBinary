@@ -14,6 +14,7 @@ efficient_ee(
   moderator_varname,
   rand_prob_varname,
   avail_varname = NULL,
+  EMEE_initial_value = TRUE,
   estimator_initial_value = NULL
 )
 }
@@ -36,6 +37,12 @@ efficient_ee(
 
 \item{avail_varname}{the variable name that specifies the availability of the subjects,
 default to be always available at any decision points using NULL}
+
+\item{EMEE_initial_value}{a logical value that specifies whether to use the estimates from
+the marginal excursion effect estimator(estimator_EMEE()) as initial values,
+default to be TRUE, which sets the initial values as the estimates from estimator_EMEE(),
+use FALSE to avoid inputs from estimator_EMEE() if certain initial values
+need to be specified in the parameter estimator_initial_value.}
 
 \item{estimator_initial_value}{a numeric vector of the initial value for the estimator,
 its length should be the sum of the length of control and moderator variables plus 2

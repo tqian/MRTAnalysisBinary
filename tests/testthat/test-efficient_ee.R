@@ -48,17 +48,6 @@ dgm_sample <- dgm_demo(sample_size = 100, total_T = 30)
 
 # tests
 
-fit_EMEE <- estimator_EMEE(
-  dta = dgm_sample,
-  id_varname = "userid",
-  decision_time_varname = "day",
-  treatment_varname = "A",
-  outcome_varname = "Y",
-  control_varname = c("time_var1", "time_var2"),
-  moderator_varname = "time_var1",
-  rand_prob_varname = "prob_A",
-  avail_varname = "avail")
-
 test_that(
   "check beta_hat",
   {
@@ -72,7 +61,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$beta_hat),
       as.vector(c(0.07473133, 0.43884629)),
       tolerance = 1e-7
@@ -91,7 +80,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$alpha_hat),
       as.vector(c(-1.4841301, 0.4835868, 0.2641755)),
       tolerance = 1e-6
@@ -110,7 +99,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$beta_se),
       as.vector(c(0.1161303, 0.1613436)),
       tolerance = 1e-6
@@ -129,7 +118,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$alpha_se),
       as.vector(c(0.07988023, 0.19605660, 0.09279685)),
       tolerance = 1e-7
@@ -148,7 +137,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$beta_se_adjusted),
       as.vector(c(0.1173742, 0.1630781)),
       tolerance = 1e-6
@@ -167,7 +156,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$alpha_se_adjusted),
       as.vector(c(0.08070538, 0.19811555, 0.09375403)),
       tolerance = 1e-7
@@ -186,7 +175,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$varcov,
       matrix(c(0.006380851, -0.01308811, 0.003305393, -0.006204126, 0.009073781,
                -0.013088110, 0.03843819, -0.014921059, 0.011267004, -0.019398075,
@@ -210,7 +199,7 @@ test_that(
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
         rand_prob_varname = "prob_A",
-        estimator_initial_value = c(fit_EMEE$alpha_hat, fit_EMEE$beta_hat)
+        EMEE_initial_value = TRUE
         )$varcov_adjusted,
       matrix(c(0.006513359, -0.01336179, 0.003374504, -0.006332914, 0.009263806,
                -0.013361786, 0.03924977, -0.015233734, 0.011497775, -0.019806389,
