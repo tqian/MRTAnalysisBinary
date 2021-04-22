@@ -52,6 +52,8 @@ the estimated beta with its intercept and alpha with its intercept,
         the adjusted standard error of the estimated beta with its intercept and alpha with its intercept for small sample,
         the estimated variance-covariance matrix for the estimated beta with its intercept and alpha with its intercept,
         the estimated variance-covariance matrix for the estimated beta with its intercept and alpha with its intercept for small sample,
+        the 95 percent confidence interval for beta_hat, and the adjusted 95 percent confidence interval for beta_hat,
+        the dimension of the moderated variables, and the dimension of the control variables,
         the value of the estimating function at the estimated beta and alpha
 }
 \description{

@@ -191,7 +191,7 @@ test_that(
         outcome_varname = "Y",
         control_varname = c("time_var1", "time_var2"),
         moderator_varname = "time_var1",
-        rand_prob_varname = "prob_A",
+        rand_prob_varname = "prob_A"
         )$varcov_adjusted,
       matrix(c(0.006512228, -0.01337437, 0.003378510, -0.006334869, 0.009265842,
                -0.013374374, 0.03932831, -0.015257219, 0.011509878, -0.019827472,
@@ -200,5 +200,49 @@ test_that(
                0.009265842, -0.01982747, 0.003694789, -0.017711846, 0.026572636),
              nrow = 5, ncol = 5, byrow = TRUE),
       tolerance = 1e-7
+    )})
+
+# extract the confidence interval from the output and drop its column and row names
+
+conf_int <- efficient_ee_twostep(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A")$conf_int
+dimnames(conf_int) <- c()
+
+test_that(
+  "check conf_int",
+  {
+    expect_equal(conf_int,
+                 matrix(c(-0.1516696, 0.3034473, 0.1207509, 0.7529592),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
+# extract the adjusted confidence interval from the output and drop its column and row names
+
+conf_int_adjusted <- efficient_ee_twostep(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A")$conf_int_adjusted
+dimnames(conf_int_adjusted) <- c()
+
+test_that(
+  "check conf_int_adjusted",
+  {
+    expect_equal(conf_int_adjusted,
+                 matrix(c(-0.1570719, 0.3088497, 0.1132370, 0.7604731),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
     )})
 

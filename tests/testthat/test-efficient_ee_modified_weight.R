@@ -210,3 +210,49 @@ test_that(
       tolerance = 1e-7
     )})
 
+# extract the confidence interval from the output and drop its column and row names
+
+conf_int <- efficient_ee_modified_weight(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  weight_threshold = 0.90)$conf_int
+dimnames(conf_int) <- c()
+
+test_that(
+  "check conf_int",
+  {
+    expect_equal(conf_int,
+                 matrix(c(-0.1518703, 0.3013330, 0.1258854, 0.7518072),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
+# extract the adjusted confidence interval from the output and drop its column and row names
+
+conf_int_adjusted <- efficient_ee_modified_weight(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  weight_threshold = 0.90)$conf_int_adjusted
+dimnames(conf_int_adjusted) <- c()
+
+test_that(
+  "check conf_int_adjusted",
+  {
+    expect_equal(conf_int_adjusted,
+                 matrix(c(-0.1572427, 0.3067053, 0.1184662, 0.7592263),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+

@@ -209,3 +209,49 @@ test_that(
              nrow = 5, ncol = 5, byrow = TRUE),
       tolerance = 1e-7
     )})
+
+# extract the confidence interval from the output and drop its column and row names
+
+conf_int <- efficient_ee(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  EMEE_initial_value = TRUE)$conf_int
+dimnames(conf_int) <- c()
+
+test_that(
+  "check conf_int",
+  {
+    expect_equal(conf_int,
+                 matrix(c(-0.1528841, 0.3023467, 0.1226128, 0.7550797),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
+
+# extract the adjusted confidence interval from the output and drop its column and row names
+
+conf_int_adjusted <- efficient_ee(
+  dta = dgm_sample,
+  id_varname = "userid",
+  decision_time_varname = "day",
+  treatment_varname = "A",
+  outcome_varname = "Y",
+  control_varname = c("time_var1", "time_var2"),
+  moderator_varname = "time_var1",
+  rand_prob_varname = "prob_A",
+  EMEE_initial_value = TRUE)$conf_int_adjusted
+dimnames(conf_int_adjusted) <- c()
+
+test_that(
+  "check conf_int_adjusted",
+  {
+    expect_equal(conf_int_adjusted,
+                 matrix(c(-0.1582858, 0.3077485, 0.1150953, 0.7625972),
+                        nrow = 2, ncol = 2, byrow = TRUE),
+                 tolerance = 1e-6
+    )})
