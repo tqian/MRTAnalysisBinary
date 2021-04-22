@@ -255,3 +255,25 @@ test_that(
                         nrow = 2, ncol = 2, byrow = TRUE),
                  tolerance = 1e-6
     )})
+
+dgm_sample$A_test <- dgm_sample$A
+dgm_sample$A_test[dgm_sample$avail == 1] <- rep(NA, 2420)
+
+test_that(
+  "check error when treatment indicator is NA where availability = 1",
+  {
+    expect_error(
+      efficient_ee(
+        dta = dgm_sample,
+        id_varname = "userid",
+        decision_time_varname = "day",
+        treatment_varname = "A_test",
+        outcome_varname = "Y",
+        control_varname = c("time_var1", "time_var2"),
+        moderator_varname = "time_var1",
+        rand_prob_varname = "prob_A",
+        EMEE_initial_value = TRUE),
+      "Treatment indicator is NA where availability = 1."
+    )
+  }
+)

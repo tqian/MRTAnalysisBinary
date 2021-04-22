@@ -90,6 +90,11 @@ efficient_ee <- function(
     avail <- dta[, avail_varname]
   }
 
+  # checking for NA in treatment indicator
+  if (any(is.na(A[avail == 1]))) {
+    stop("Treatment indicator is NA where availability = 1.")
+  }
+
   p <- length(moderator_varname) + 1 # dimension of beta
   q <- length(control_varname) + 1 # dimension of alpha
 
